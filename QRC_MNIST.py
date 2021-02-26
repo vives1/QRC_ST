@@ -71,9 +71,9 @@ def reshape_img_MNIST(data,size,nr,nc):
 			
 	return reshaped_data
 	
-def runQRC_any(data,shots,noisy=False):
+def runQRC_any(data,shots,isNoisy=False):
 	
-	if (noisy == True):
+	if (isNoisy == True):
 		# Noise model
 		# Build noise model from backend properties
 		provider = IBMQ.load_account()
@@ -199,7 +199,7 @@ def runQRC_any(data,shots,noisy=False):
 #         print("col "+str(i)+" done")
 			
 	
-	if (noisy == True):
+	if (isNoisy == True):
 		# Noisy simulation
 		result = execute(circuit, Aer.get_backend('qasm_simulator'),
 					 coupling_map=coupling_map,
@@ -264,7 +264,7 @@ else:
 shots = 1024
 
 new_img = reshape_img_MNIST(img,new_size,nr,nc)
-counts = runQRC_any(new_img,shots,noisy=noisy)
+counts = runQRC_any(new_img,shots,noisy=isNoisy)
 
 # with n_meas
 n_meas = new_size*new_size
