@@ -7,7 +7,6 @@ import qiskit
 from qiskit import *
 from qiskit import IBMQ
 
-from matplotlib import pyplot as plt
 
 from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister, execute
 from qiskit.tools.visualization import circuit_drawer
@@ -33,12 +32,7 @@ from sklearn.metrics import confusion_matrix
 import scipy.optimize as optimize
 from sklearn import linear_model
 
-import time
 import itertools
-from matplotlib import pyplot as plt
-import matplotlib.lines as mlines
-
-
 import json
 import sys
 
