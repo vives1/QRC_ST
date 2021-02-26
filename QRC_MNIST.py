@@ -280,11 +280,6 @@ for key in counts:
 	for r in range(n_meas):
 		meas[r]+=int(key[r])*counts[key]    
 
-meas = float(meas/shots)
-
-Meas = [meas]
-
-
 # for storing information purposes
 img_iteration = int(sys.argv[6])
 
@@ -292,7 +287,7 @@ s = "QRC_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size
 
 # use append "a" for parallel computing
 with open(s, "w") as fp:
-	json.dump(Meas, fp)
+	json.dump(meas.tolist(), fp)
 
 
 
