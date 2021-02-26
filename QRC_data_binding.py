@@ -10,11 +10,11 @@ import os
 
 new_size = int(sys.argv[1])
 nr = int(sys.argv[2])
-nc = int(sys.argv[3])
+nc = int(new_size/nr)*new_size
 
 # whether True (0) or Flase (1)
-isTrain = int(sys.argv[4])
-isNoisy = int(sys.argv[5])
+isTrain = int(sys.argv[3])
+isNoisy = int(sys.argv[4])
 
 if (isNoisy == 0):
 	nVar = "Noisy"

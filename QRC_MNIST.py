@@ -224,8 +224,6 @@ def runQRC_any(data,shots,noisy=False):
 
 
 
-
-
 train_data = np.load('MNISTcwtrain1000.npy')
 train_data = train_data.astype(dtype='float64')
 test_data = np.load('MNISTcwtest100.npy')
@@ -249,26 +247,28 @@ test = test/255.0
 
 img_number = int(sys.argv[2])
 nr = int(sys.argv[3])
-nc = int(sys.argv[4])
+nc = int(new_size/nr)*new_size
 
 # wither True (0) or Flase (1)
-isNoisy = int(sys.argv[5])
-isTrain = int(sys.argv[6])
+isNoisy = int(sys.argv[4])
+isTrain = int(sys.argv[5])
 
 if (isNoisy == 0):
 	nVar = "Noisy"
 else:
 	nVar = "Noiseless"
 
+
 if (isTrain == 0):
 	tVar = "Train"
+	img = unpackcw(train[:,img_number],new_size,new_size)
 else:
 	tVar = "Test"
+	img = unpackcw(test[:,img_number],new_size,new_size)
 
+# always this
+shots = 1024
 
-
-
-img = unpackcw(data[:,img_number],new_size,new_size)
 new_img = reshape_img_MNIST(img,new_size,nr,nc)
 counts = runQRC_any(new_img,shots,noisy=noisy)
 
@@ -283,7 +283,7 @@ meas = meas/shots
 
 
 # for storing information purposes
-img_iteration = int(sys.argv[7])
+img_iteration = int(sys.argv[6])
 
 s = "QRC_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,2*nr,nr,nc,img_number,img_iteration)
 
