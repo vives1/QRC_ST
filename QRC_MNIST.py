@@ -280,6 +280,9 @@ for key in counts:
 	for r in range(n_meas):
 		meas[r]+=int(key[r])*counts[key]    
 
+meas = meas/shots
+
+
 # for storing information purposes
 img_iteration = int(sys.argv[6])
 
