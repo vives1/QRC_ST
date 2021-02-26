@@ -82,11 +82,13 @@ def runQRC_any(data,shots,isNoisy=False):
 		backend = provider.get_backend('ibmq_16_melbourne')
 		noise_model = NoiseModel.from_backend(backend)
 
-	# Get coupling map from backend
-	coupling_map = backend.configuration().coupling_map
+		# Get coupling map from backend
+		coupling_map = backend.configuration().coupling_map
 
-	# Get basis gates from noise model
-	basis_gates = noise_model.basis_gates
+		# Get basis gates from noise model
+		basis_gates = noise_model.basis_gates
+
+		
 	# data is 2D image, nrxnc
 	
 	nr = data.shape[0]
