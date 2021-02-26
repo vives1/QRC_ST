@@ -65,10 +65,10 @@ def resize_dataset(data, o_size, nrc):
     return new_data
 
 
- def reshape_img_MNIST(data,size,nr,nc):
+def reshape_img_MNIST(data,size,nr,nc):
     
     
-    reshaped_data = np.zeros((nr,nc))
+	reshaped_data = np.zeros((nr,nc))
     
     div = int(size/nr)
     for j in range(div):
