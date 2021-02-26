@@ -246,13 +246,16 @@ nr = int(sys.argv[3])
 nc = int(new_size/nr)*new_size
 
 # wither True (0) or Flase (1)
-isNoisy = int(sys.argv[4])
+IntisNoisy = int(sys.argv[4])
 isTrain = int(sys.argv[5])
 
-if (isNoisy == 0):
+if (IntisNoisy == 0):
 	nVar = "Noisy"
+	isNoisy = True
 else:
 	nVar = "Noiseless"
+	isNoisy = False
+
 
 
 if (isTrain == 0):
