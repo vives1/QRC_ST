@@ -88,7 +88,7 @@ def runQRC_any(data,shots,isNoisy=False):
 		# Get basis gates from noise model
 		basis_gates = noise_model.basis_gates
 
-		
+
 	# data is 2D image, nrxnc
 	
 	nr = data.shape[0]
@@ -282,6 +282,8 @@ for key in counts:
 
 meas = meas/shots
 
+dump = [meas]
+
 
 # for storing information purposes
 img_iteration = int(sys.argv[6])
@@ -290,7 +292,7 @@ s = "QRC_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size
 
 # use append "a" for parallel computing
 with open(s, "w") as fp:
-	json.dump(meas, fp)
+	json.dump(dump, fp)
 
 
 
