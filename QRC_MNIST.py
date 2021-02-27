@@ -60,7 +60,7 @@ def resize_dataset(data, o_size, nrc):
 		new_data[:,i] = img
 	return new_data
 
-
+ 
 def reshape_img_MNIST(data,size,nr,nc):
 	
 	
