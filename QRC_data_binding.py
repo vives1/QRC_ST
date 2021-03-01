@@ -38,19 +38,17 @@ label_data = []
 rc_nodes = []
 
 
-if (isTrain == 0):
+for img_number in range(nimg):
+	s = "QRC_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,2*nr,nr,nc,img_number,img_iteration)
 
-	for img_number in range(nimg):
-		s = "QRC_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,2*nr,nr,nc,img_number,img_iteration)
+	with open(s, "r") as fp:
+		meas = json.load(fp)
+	 
+	label_data.append(img_number%1000)
+	rc_nodes.append(meas)
 
-		with open(s, "r") as fp:
-    		meas = json.load(fp)
-    	 
-    	label_data.append(img_number%1000)
-    	rc_nodes.append(meas)
-
-    	# remove file to declutter
-    	os.remove(s)
+	# remove file to declutter
+	os.remove(s)
 
 
 res = [label_data,rc_nodes]
