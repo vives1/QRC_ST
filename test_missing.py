@@ -33,7 +33,7 @@ img_iteration = int(sys.argv[5])
 for img_number in range(nimg):
 
 
-	if (img_number > 22):
+	if (img_number > 41):
 		print("Img "+str(img_number))
 
 		s = "QRC_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,2*nr,nr,nc,img_number,img_iteration)
