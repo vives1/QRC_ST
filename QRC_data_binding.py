@@ -54,7 +54,7 @@ for img_number in range(nimg):
 res = [label_data,rc_nodes]
 sn = "QRC_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,tVar,nimg,nVar,2*nr,nr,nc,img_iteration)
 
-print(res)
+print(sn)
 
 with open(s, "w") as fp:
     json.dump(res, fp)
