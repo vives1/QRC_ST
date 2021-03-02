@@ -47,7 +47,6 @@ for img_number in range(nimg):
 	with open(s, "r") as fp:
 		meas = json.load(fp)
 	
-	print(int(img_number/lab_div))
 	label_data.append(int(img_number/lab_div))
 	rc_nodes.append(meas)
 
