@@ -44,15 +44,15 @@ for img_number in range(nimg):
 	with open(s, "r") as fp:
 		meas = json.load(fp)
 	 
-	label_data.append(img_number%1000)
+	label_data.append(int(img_number/1000))
 	rc_nodes.append(meas)
 
 	# remove file to declutter
-	os.remove(s)
+	# os.remove(s)
 
 
 res = [label_data,rc_nodes]
-sn = "QRC_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,tVar,2*nimg,nVar,2*nr,nr,nc,img_iteration)
+sn = "QRC_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,tVar,nimg,nVar,2*nr,nr,nc,img_iteration)
 
 with open(s, "w") as fp:
     json.dump(res, fp)
