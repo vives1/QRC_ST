@@ -57,5 +57,5 @@ sn = "QRC_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,tV
 print(sn)
 
 with open(s, "w") as fp:
-    json.dump(res, fp)
+	json.dump(res, fp)
 
