@@ -24,9 +24,12 @@ else:
 if (isTrain == 0):
 	tVar = "Train"
 	nimg = 2000
+	lab_div = 1000
 else:
 	tVar = "Test"
 	nimg = 200
+	lab_div = 100
+
 
 
 img_iteration = int(sys.argv[5])
@@ -44,7 +47,7 @@ for img_number in range(nimg):
 	with open(s, "r") as fp:
 		meas = json.load(fp)
 	 
-	label_data.append(int(img_number/1000))
+	label_data.append(int(img_number/lab_div))
 	rc_nodes.append(meas)
 
 	# remove file to declutter maybe not hahah
