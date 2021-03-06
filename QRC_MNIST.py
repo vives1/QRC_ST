@@ -204,7 +204,7 @@ def runQRC_any(data,shots,isNoisy=False):
 	
 	if (isNoisy == True):
 	    # noisy simulation
-	    name = "Montreal_27q_Noise_Model"
+	    name = "Melbourne_16q_Noise_Model"
 	    res = load_obj(name)
 	    coupling_map=res[0]
 	    basis_gates=res[1]
