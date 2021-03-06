@@ -21,6 +21,8 @@ from qiskit.ignis.mitigation.measurement import (complete_meas_cal, tensored_mea
 
 from qiskit.providers.aer.noise import NoiseModel
 
+from qiskit import QuantumCircuit
+from qiskit.providers.aer import QasmSimulator
 
 import cv2 
 
@@ -35,6 +37,9 @@ from sklearn import linear_model
 import itertools
 import json
 import sys
+import pickle
+
+
 
 #IBMQ.save_account('488a01d1ced1b582bb3182aa638da3e3571b07af5f757f78ad1d05a9f0dfec77bbbf44eb3563259f5238ff2b0fadd3963202ab72b45a65671caa9c47b492882f')
  
@@ -75,20 +80,6 @@ def reshape_img_MNIST(data,size,nr,nc):
 	
 def runQRC_any(data,shots,isNoisy=False):
 	
-	if (isNoisy == True):
-		# Noise model
-		# Build noise model from backend properties
-		provider = IBMQ.load_account()
-		backend = provider.get_backend('ibmq_16_melbourne')
-		noise_model = NoiseModel.from_backend(backend)
-
-		# Get coupling map from backend
-		coupling_map = backend.configuration().coupling_map
-
-		# Get basis gates from noise model
-		basis_gates = noise_model.basis_gates
-
-
 	# data is 2D image, nrxnc
 	
 	nr = data.shape[0]
@@ -204,13 +195,20 @@ def runQRC_any(data,shots,isNoisy=False):
 			
 	
 	if (isNoisy == True):
-		# Noisy simulation
-		result = execute(circuit, Aer.get_backend('qasm_simulator'),
-					 coupling_map=coupling_map,
-					 basis_gates=basis_gates,
-					 noise_model=noise_model).result()
-		
-		counts = result.get_counts(0)
+	    # noisy simulation
+	    name = "Montreal_27q_Noise_Model"
+	    res = load_obj(name)
+	    coupling_map=res[0]
+	    basis_gates=res[1]
+	    noise_model = NoiseModel.from_dict(res[2])
+
+	    # Noisy simulation
+	    result = execute(circuit, Aer.get_backend('qasm_simulator'),
+	                 coupling_map=coupling_map,
+	                 basis_gates=basis_gates,
+	                 noise_model=noise_model).result()
+	    
+	    counts = result.get_counts(0)
 	else:
 		# Use Aer's qasm_simulator
 		backend = Aer.get_backend('qasm_simulator')
