@@ -273,10 +273,11 @@ nc = int(new_size/nr)*new_size
 IntisNoisy = int(sys.argv[4])
 isTrain = int(sys.argv[5])
 
-# for storing information purposes
-img_iteration = int(sys.argv[6])
+noise_m = str(sys.argv[6])
 
-noise_m = str(sys.argv[7])
+# for storing information purposes
+img_iteration = int(sys.argv[7])
+
 
 if (IntisNoisy == 0):
 	nVar = noise_m
