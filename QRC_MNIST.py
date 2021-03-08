@@ -212,7 +212,7 @@ def runQRC_any(data,shots,noise_m,isNoisy=False):
 			noise_model = NoiseModel.from_dict(res)
 			basis_gates = noise_model.basis_gates
 
-			result = execute(circ, Aer.get_backend('qasm_simulator'),
+			result = execute(circuit, Aer.get_backend('qasm_simulator'),
                  basis_gates=basis_gates,
                  noise_model=noise_model).result()
 			counts = result.get_counts(0)
