@@ -52,7 +52,7 @@ def load_obj(name):
     with open(name + '.pkl', 'rb') as f:
         return pickle.load(f)    
     
-    
+
 # Function that converts a 1D vectorized image into a (nr x nc) 2D array
 def unpackcw(x,nr,nc):
 	A = x.reshape(nc,nr)
@@ -86,7 +86,7 @@ def reshape_img_MNIST(data,size,nr,nc):
 			
 	return reshaped_data
 	
-def runQRC_any(data,shots,isNoisy=False):
+def runQRC_any(data,shots,noise_m,isNoisy=False):
 	
 	# data is 2D image, nrxnc
 	
@@ -203,20 +203,36 @@ def runQRC_any(data,shots,isNoisy=False):
 			
 	
 	if (isNoisy == True):
-	    # noisy simulation
-	    name = "Melbourne_16q_Noise_Model"
-	    res = load_obj(name)
-	    coupling_map=res[0]
-	    basis_gates=res[1]
-	    noise_model = NoiseModel.from_dict(res[2])
 
-	    # Noisy simulation
-	    result = execute(circuit, Aer.get_backend('qasm_simulator'),
-	                 coupling_map=coupling_map,
-	                 basis_gates=basis_gates,
-	                 noise_model=noise_model).result()
-	    
-	    counts = result.get_counts(0)
+		# if applying a certain noise model
+		if (noise_m[0] == 'D'):
+
+			res = load_obj(noise_m)
+
+			noise_model = NoiseModel.from_dict(res)
+			basis_gates = noise_model.basis_gates
+
+			result = execute(circ, Aer.get_backend('qasm_simulator'),
+                 basis_gates=basis_gates,
+                 noise_model=noise_model).result()
+			counts = result.get_counts(0)
+
+
+		# if device noise model
+		else:
+		    # noisy simulation
+		    res = load_obj(noise_m)
+		    coupling_map=res[0]
+		    basis_gates=res[1]
+		    noise_model = NoiseModel.from_dict(res[2])
+
+		    # Noisy simulation
+		    result = execute(circuit, Aer.get_backend('qasm_simulator'),
+		                 coupling_map=coupling_map,
+		                 basis_gates=basis_gates,
+		                 noise_model=noise_model).result()
+		    
+		    counts = result.get_counts(0)
 	else:
 		# Use Aer's qasm_simulator
 		backend = Aer.get_backend('qasm_simulator')
@@ -257,13 +273,17 @@ nc = int(new_size/nr)*new_size
 IntisNoisy = int(sys.argv[4])
 isTrain = int(sys.argv[5])
 
+# for storing information purposes
+img_iteration = int(sys.argv[6])
+
+noise_m = str(sys.argv[7])
+
 if (IntisNoisy == 0):
-	nVar = "Noisy"
+	nVar = noise_m
 	isNoisy = True
 else:
 	nVar = "Noiseless"
 	isNoisy = False
-
 
 
 if (isTrain == 0):
@@ -277,7 +297,7 @@ else:
 shots = 1024
 
 new_img = reshape_img_MNIST(img,new_size,nr,nc)
-counts = runQRC_any(new_img,shots,isNoisy=isNoisy)
+counts = runQRC_any(new_img,shots,noise_m,isNoisy=isNoisy)
 
 # with n_meas
 n_meas = new_size*new_size
@@ -287,10 +307,6 @@ for key in counts:
 		meas[r]+=int(key[r])*counts[key]    
 
 meas = meas/shots
-
-
-# for storing information purposes
-img_iteration = int(sys.argv[6])
 
 s = "QRC_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,2*nr,nr,nc,img_number,img_iteration)
 
