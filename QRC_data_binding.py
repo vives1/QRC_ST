@@ -16,8 +16,10 @@ nc = int(new_size/nr)*new_size
 isNoisy = int(sys.argv[3])
 isTrain = int(sys.argv[4])
 
+noise_m = str(sys.argv[5])
+
 if (isNoisy == 0):
-	nVar = "Noisy"
+	nVar = noise_m
 else:
 	nVar = "Noiseless"
 
@@ -32,7 +34,7 @@ else:
 
 
 
-img_iteration = int(sys.argv[5])
+img_iteration = int(sys.argv[6])
 
 # label 
 label_data = []
@@ -55,7 +57,10 @@ for img_number in range(nimg):
 
 
 res = [label_data,rc_nodes]
-sn = "QRC_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,tVar,nimg,nVar,2*nr,nr,nc,img_iteration)
+if (isNoisy == 0):
+	sn = "QRC_MNIST_{}x{}_{}_{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,tVar,nimg,nVar,2*nr,nr,nc,img_iteration)
+else:	
+	sn = "QRC_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,tVar,nimg,nVar,2*nr,nr,nc,img_iteration)
 
 
 with open(sn, "w") as fp:
