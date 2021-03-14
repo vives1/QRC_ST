@@ -205,7 +205,7 @@ def runQRC_any(data,shots,noise_m,isNoisy=False):
 	if (isNoisy == True):
 
 		# if applying a certain noise model
-		if (noise_m[0] == 'D'):
+		if (noise_m[0] == 'D' or noise_m[0] == 'N'):
 
 			res = load_obj(noise_m)
 
