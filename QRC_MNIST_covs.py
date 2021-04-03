@@ -314,12 +314,14 @@ for i in range(shots):
         for r in range(n_meas):
             Zs[n_meas-r-1].append(int(key[r])*counts[key]) 
 
+cov = np.cov(Zs)
+covs_mat_flat = cov.flatten()
 
 s = "QRC_cov_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,2*nr,nr,nc,img_number,img_iteration)
 
 # use append "a" for parallel computing
 with open(s, "w") as fp:
-	json.dump(Zs, fp)
+	json.dump(covs_mat_flat.tolist(), fp)
 
 
 
