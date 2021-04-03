@@ -242,21 +242,6 @@ def runQRC_any(data,shots,noise_m,isNoisy=False):
 	
 	return counts
 
-def get_Zs_vecs(n_meas,data,shots):
-    
-    # have to build each count individually
-    Zs = []
-    for i in range(n_meas):
-        Zs.append([])
-    
-     
-    for i in range(shots):
-        counts = runQRC_any(new_img,1)
-
-        for key in counts:
-            for r in range(n_meas):
-                Zs[n_meas-r-1].append(int(key[r])*counts[key] )   
-    return Zs
 
 train_data = np.load('MNISTcwtrain1000.npy')
 train_data = train_data.astype(dtype='float64')
@@ -316,7 +301,18 @@ new_img = reshape_img_MNIST(img,new_size,nr,nc)
 shots = 1024
 n_meas = new_size*new_size
 
-Zs = get_Zs_vecs(n_meas,new_img,shots)
+# have to build each count individually
+Zs = []
+for i in range(n_meas):
+    Zs.append([])
+
+ 
+for i in range(shots):
+    counts = runQRC_any(new_img,1,noise_m,isNoisy=isNoisy)
+
+    for key in counts:
+        for r in range(n_meas):
+            Zs[n_meas-r-1].append(int(key[r])*counts[key]) 
 
 
 s = "QRC_cov_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,2*nr,nr,nc,img_number,img_iteration)
