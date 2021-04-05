@@ -50,11 +50,15 @@ for img_number in range(nimg):
 	with open(s, "r") as fp:
 		meas = json.load(fp)
 
+	print(len(meas))
+	
 	meas = np.array(meas)
 	covm = meas.reshape(-1,n_meas)
 
 	upper_tri = list(covm[np.triu_indices(n_meas)])
 	
+	print(len(upper_tri))
+
 	label_data.append(int(img_number/lab_div))
 	rc_nodes.append(upper_tri)
 
