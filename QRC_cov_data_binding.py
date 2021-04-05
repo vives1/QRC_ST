@@ -42,15 +42,20 @@ label_data = []
 # training set 
 rc_nodes = []
 
+n_meas = new_size*new_size
 
 for img_number in range(nimg):
 	s = "QRC_cov_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,2*nr,nr,nc,img_number,img_iteration)
 
 	with open(s, "r") as fp:
 		meas = json.load(fp)
+
+	covm = meas.reshape(-1,n_meas)
+
+	upper_tri = list(covm[np.triu_indices(n_meas)])
 	
 	label_data.append(int(img_number/lab_div))
-	rc_nodes.append(meas)
+	rc_nodes.append(upper_tri)
 
 	# remove file to declutter maybe not hahah
 	# os.remove(s)
