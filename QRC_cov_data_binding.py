@@ -50,6 +50,7 @@ for img_number in range(nimg):
 	with open(s, "r") as fp:
 		meas = json.load(fp)
 
+	meas = np.array(meas)
 	covm = meas.reshape(-1,n_meas)
 
 	upper_tri = list(covm[np.triu_indices(n_meas)])
