@@ -17,7 +17,7 @@ from qiskit.tools.monitor import job_monitor
 
 # Import measurement calibration functions
 from qiskit.ignis.mitigation.measurement import (complete_meas_cal, tensored_meas_cal,
-												 CompleteMeasFitter, TensoredMeasFitter)
+                                                 CompleteMeasFitter, TensoredMeasFitter)
 
 from qiskit.providers.aer.noise import NoiseModel
 
@@ -55,40 +55,40 @@ def load_obj(name):
 
 # Function that converts a 1D vectorized image into a (nr x nc) 2D array
 def unpackcw(x,nr,nc):
-	A = x.reshape(nc,nr)
-	return A.T
-	
+    A = x.reshape(nc,nr)
+    return A.T
+    
 # resize img 2D array to specified nr,nc
 def resize_img(img,nr,nc):
-	return cv2.resize(img, dsize=(nr, nc), interpolation=cv2.INTER_CUBIC)
+    return cv2.resize(img, dsize=(nr, nc), interpolation=cv2.INTER_CUBIC)
 
 def resize_dataset(data, o_size, nrc):
-	
-	new_data = np.zeros((nrc*nrc, len(data[0])))
-	for i in range(len(data[0])):
-		img = unpackcw(data[:,i],o_size,o_size)
-		img = resize_img(img,nrc,nrc)
-		img = img.T
-		img = img.reshape(nrc*nrc)
-		new_data[:,i] = img
-	return new_data
+    
+    new_data = np.zeros((nrc*nrc, len(data[0])))
+    for i in range(len(data[0])):
+        img = unpackcw(data[:,i],o_size,o_size)
+        img = resize_img(img,nrc,nrc)
+        img = img.T
+        img = img.reshape(nrc*nrc)
+        new_data[:,i] = img
+    return new_data
 
  
 def reshape_img_MNIST(data,size,nr,nc):
-	
-	
-	reshaped_data = np.zeros((nr,nc))
-	
-	div = int(size/nr)
-	for j in range(div):
-		for i in range(size):  
-			reshaped_data[:,j*size+i] = data[j*nr:(j+1)*nr,i]
-			
-	return reshaped_data
-	
+    
+    
+    reshaped_data = np.zeros((nr,nc))
+    
+    div = int(size/nr)
+    for j in range(div):
+        for i in range(size):  
+            reshaped_data[:,j*size+i] = data[j*nr:(j+1)*nr,i]
+            
+    return reshaped_data
+    
 def runQRC_any(data,shots,noise_m,isNoisy=False):
-		
-	nr = data.shape[0]
+        
+    nr = data.shape[0]
     nc = data.shape[1]
 
     qr = QuantumRegister(2*nr)
@@ -206,47 +206,47 @@ def runQRC_any(data,shots,noise_m,isNoisy=False):
             circuit.measure(qr[j+nr],cr[m])
             m+=1
         
-        i+=2			
-	
-	if (isNoisy == True):
+        i+=2            
+    
+    if (isNoisy == True):
 
-		# if applying a certain noise model
-		if (noise_m[0] == 'D' or noise_m[0] == 'N'):
+        # if applying a certain noise model
+        if (noise_m[0] == 'D' or noise_m[0] == 'N'):
 
-			res = load_obj(noise_m)
+            res = load_obj(noise_m)
 
-			noise_model = NoiseModel.from_dict(res)
-			basis_gates = noise_model.basis_gates
+            noise_model = NoiseModel.from_dict(res)
+            basis_gates = noise_model.basis_gates
 
-			result = execute(circuit, Aer.get_backend('qasm_simulator'),
+            result = execute(circuit, Aer.get_backend('qasm_simulator'),
                  basis_gates=basis_gates,
                  noise_model=noise_model).result()
-			counts = result.get_counts(0)
+            counts = result.get_counts(0)
 
 
-		# if device noise model
-		else:
-		    # noisy simulation
-		    res = load_obj(noise_m)
-		    coupling_map=res[0]
-		    basis_gates=res[1]
-		    noise_model = NoiseModel.from_dict(res[2])
+        # if device noise model
+        else:
+            # noisy simulation
+            res = load_obj(noise_m)
+            coupling_map=res[0]
+            basis_gates=res[1]
+            noise_model = NoiseModel.from_dict(res[2])
 
-		    # Noisy simulation
-		    result = execute(circuit, Aer.get_backend('qasm_simulator'),
-		                 coupling_map=coupling_map,
-		                 basis_gates=basis_gates,
-		                 noise_model=noise_model).result()
-		    
-		    counts = result.get_counts(0)
-	else:
-		# Use Aer's qasm_simulator
-		backend = Aer.get_backend('qasm_simulator')
-		job = execute(circuit, backend, shots=shots)
-		result = job.result()
-		counts = result.get_counts(circuit)
-	
-	return counts
+            # Noisy simulation
+            result = execute(circuit, Aer.get_backend('qasm_simulator'),
+                         coupling_map=coupling_map,
+                         basis_gates=basis_gates,
+                         noise_model=noise_model).result()
+            
+            counts = result.get_counts(0)
+    else:
+        # Use Aer's qasm_simulator
+        backend = Aer.get_backend('qasm_simulator')
+        job = execute(circuit, backend, shots=shots)
+        result = job.result()
+        counts = result.get_counts(circuit)
+    
+    return counts
 
 
 train_data = np.load('MNISTcwtrain1000.npy')
@@ -285,19 +285,19 @@ img_iteration = int(sys.argv[7])
 
 
 if (IntisNoisy == 0):
-	nVar = noise_m
-	isNoisy = True
+    nVar = noise_m
+    isNoisy = True
 else:
-	nVar = "Noiseless"
-	isNoisy = False
+    nVar = "Noiseless"
+    isNoisy = False
 
 
 if (isTrain == 0):
-	tVar = "Train"
-	img = unpackcw(train[:,img_number],new_size,new_size)
+    tVar = "Train"
+    img = unpackcw(train[:,img_number],new_size,new_size)
 else:
-	tVar = "Test"
-	img = unpackcw(test[:,img_number],new_size,new_size)
+    tVar = "Test"
+    img = unpackcw(test[:,img_number],new_size,new_size)
 
 
 
@@ -327,7 +327,7 @@ s = "QRC_cov_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_
 
 # use append "a" for parallel computing
 with open(s, "w") as fp:
-	json.dump(covs_mat_flat.tolist(), fp)
+    json.dump(covs_mat_flat.tolist(), fp)
 
 
 
