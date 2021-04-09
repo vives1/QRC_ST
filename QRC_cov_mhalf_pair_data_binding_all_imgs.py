@@ -6,6 +6,15 @@ import scipy as sp
 import json
 import sys
 import os
+import pickle
+
+def save_obj(obj, name ):
+    with open(name + '.pkl', 'wb') as f:
+        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+
+def load_obj(name):
+    with open(name + '.pkl', 'rb') as f:
+        return pickle.load(f)
 
 
 new_size = int(sys.argv[1])
@@ -68,7 +77,7 @@ res = [label_data,rc_nodes]
 
 sn = "QRC_cov_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,tVar,nimg,nVar,3*int(nr/2),nr,int(nc/2),img_iteration)
 
+save_obj(res, sn)
 
-with open(sn, "w") as fp:
-	json.dump(res, fp)
+
 
