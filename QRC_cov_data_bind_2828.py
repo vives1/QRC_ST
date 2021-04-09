@@ -16,7 +16,6 @@ nc = int(new_size/nr)*new_size
 isNoisy = 1
 isTrain = 0
 
-noise_m = str(sys.argv[5])
 
 nVar = "Noiseless"
 
