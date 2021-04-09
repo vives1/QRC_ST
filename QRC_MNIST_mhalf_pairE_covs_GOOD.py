@@ -285,8 +285,8 @@ new_train_data = resize_dataset(train_data, o_size, new_size)
 new_test_data = resize_dataset(test_data, o_size, new_size)
 
 # restrict to 0 and 1
-train = new_train_data[:,:2000]
-test = new_test_data[:,:200]
+train = new_train_data
+test = new_test_data
 
 # normalize grayscale
 train = train/255.0
