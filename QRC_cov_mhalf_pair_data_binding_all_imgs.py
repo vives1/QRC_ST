@@ -72,6 +72,8 @@ for img_number in range(nimg):
 	# remove file to declutter maybe not hahah
 	# os.remove(s)
 
+print(len(label_data))
+print(len(rc_nodes))
 
 res = [label_data,rc_nodes]
 
