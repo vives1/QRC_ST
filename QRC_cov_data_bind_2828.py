@@ -36,7 +36,8 @@ for img_number in range(2000,10000):
     with open(s, "r") as fp:
         meas = json.load(fp)
 
-
+    print(len(meas))
+    
     meas = np.array(meas)
     covm = meas.reshape(-1,n_meas)
 
