@@ -39,11 +39,11 @@ max_img=9999
 for img_number in $(seq $min_img $max_img)
 do
 
-        if compgen -G "QRC_cov_MNIST_28x28_Train_Noiseless_nq6_4x98_img"${img_number}"_iter0.txt" > /dev/null; then
-            :
-        else
-            python QRC_MNIST_mhalf_pairE_covs_GOOD.py $new_size $img_number $nr $isNoisy $isTrain $noise_model $img_iteration &
-        fi
+    if compgen -G "QRC_cov_MNIST_28x28_Train_Noiseless_nq6_4x98_img"${img_number}"_iter0.txt" > /dev/null; then
+        :
+    else
+        python QRC_MNIST_mhalf_pairE_covs_GOOD.py $new_size $img_number $nr $isNoisy $isTrain $noise_model $img_iteration &
+fi
 done
 
 wait
