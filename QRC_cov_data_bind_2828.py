@@ -65,8 +65,14 @@ sn = "QRC_cov_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_siz
 with open(sn, "r") as fp:
     res2000first = json.load(fp)
 
-label_full = res2000first[0].extend(label_data)
-rc_full = res2000first[1].extend(rc_nodes)
+label_full = []
+rc_full = []
+
+label_full.extend(res2000first[0])
+rc_full.extend(res2000first[1])
+
+label_full.extend(label_data)
+rc_full.extend(rc_nodes)
 
 
 print(len(rc_full))
