@@ -12,18 +12,11 @@ new_size = 28
 nr = 4
 nc = int(new_size/nr)*new_size
 
-# whether True (0) or Flase (1)
-isNoisy = 1
-isTrain = 0
-
-
 nVar = "Noiseless"
-
 
 tVar = "Train"
 
 lab_div = 1000
-
 
 
 
@@ -37,7 +30,7 @@ rc_nodes = []
 
 n_meas = new_size*int(new_size/4)
 
-for img_number in range(2000,8000):
+for img_number in range(2000,10000):
 	s = "QRC_cov_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,int(nc/2),img_number,img_iteration)
 
 	with open(s, "r") as fp:
