@@ -6,6 +6,15 @@ import scipy as sp
 import json
 import sys
 import os
+import pickle
+
+def save_obj(obj, name ):
+    with open(name + '.pkl', 'wb') as f:
+        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+
+def load_obj(name):
+    with open(name + '.pkl', 'rb') as f:
+        return pickle.load(f) 
 
 
 new_size = 28
@@ -32,12 +41,10 @@ n_meas = new_size*int(new_size/4)
 
 for img_number in range(2000,10000):
     s = "QRC_cov_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,int(nc/2),img_number,img_iteration)
-    print(s)
+
     with open(s, "r") as fp:
         meas = json.load(fp)
 
-    print(len(meas))
-    
     meas = np.array(meas)
     covm = meas.reshape(-1,n_meas)
 
@@ -50,6 +57,7 @@ for img_number in range(2000,10000):
     # remove file to declutter maybe not hahah
     # os.remove(s)
 
+print(len(rc_nodes))
 
 # add to the 8000 the the first 2000
 sn = "QRC_cov_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,tVar,2000,nVar,3*int(nr/2),nr,int(nc/2),img_iteration)
@@ -61,6 +69,9 @@ label_full = res2000first[0].extend(label_data)
 rc_full = res2000first[1].extend(rc_nodes)
 
 
+print(len(rc_full))
+
+
 # save full 10k train images
 res = [label_full,rc_full]
 
@@ -68,4 +79,6 @@ sn = "QRC_cov_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_siz
 
 with open(sn, "w") as fp:
     json.dump(res, fp)
+
+save_obj(res,sn)
 
