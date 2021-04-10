@@ -32,7 +32,7 @@ n_meas = new_size*int(new_size/4)
 
 for img_number in range(2000,10000):
     s = "QRC_cov_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,int(nc/2),img_number,img_iteration)
-
+    print(s)
     with open(s, "r") as fp:
         meas = json.load(fp)
 
