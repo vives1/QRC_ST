@@ -339,7 +339,7 @@ shots = 1024
 n_meas = nc
 
 
-counts = runQRC_any(new_img,shots,noise_m,isNoisy=isNoisy)
+counts = runQRC_9q_7x56(new_img,shots,noise_m,isNoisy=False)
 Zs = get_Zs_vecs(n_meas,counts,shots)
 
 cov = np.cov(Zs)
