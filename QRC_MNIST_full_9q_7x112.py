@@ -333,7 +333,7 @@ shots = 1024
 n_meas = nc*2
 
 
-counts = runQRC_9q_7x56(new_img,shots,noise_m,isNoisy=False)
+counts = runQRC_9q_7x112(new_img,shots,noise_m,isNoisy=False)
 Zs = get_Zs_vecs(n_meas,counts,shots)
 
 cov = np.cov(Zs)
