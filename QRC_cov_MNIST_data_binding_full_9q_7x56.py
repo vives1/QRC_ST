@@ -56,17 +56,22 @@ rc_nodes = []
 n_meas = nc
 
 for img_number in range(nimg):
-	s = "QRC_cov_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,nq,nr,int(nc/2),img_number,img_iteration)
+	s = "QRC_zs_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,nq,nr,int(nc/2),img_number,img_iteration)
 
 	with open(s, "r") as fp:
 		meas = json.load(fp)
 
+	Zs = np.array(meas)
 
-	meas = np.array(meas)
-	covm = meas.reshape(-1,n_meas)
+	Zs_mean = np.mean(Zs,axis=1)
+	Zs_mean = Zs_mean.tolist()
+
+	covm = np.cov(Zs)
 
 	upper_tri = list(covm[np.triu_indices(n_meas)])
 	
+	# ADD <Z> VALUES TO COV MAT
+	upper_tri.extend(Zs_mean)
 
 	label_data.append(int(img_number/lab_div))
 	rc_nodes.append(upper_tri)
@@ -77,7 +82,7 @@ for img_number in range(nimg):
 
 res = [label_data,rc_nodes]
 
-sn = "QRC_cov_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,tVar,nimg,nVar,nq,nr,int(nc/2),img_iteration)
+sn = "QRC_zs+cov_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,tVar,nimg,nVar,nq,nr,int(nc/2),img_iteration)
 
 save_obj(res, sn)
 
