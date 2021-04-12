@@ -28,18 +28,18 @@ isTrain = int(sys.argv[4])
 noise_m = str(sys.argv[5])
 
 if (isNoisy == 0):
-	nVar = noise_m
+    nVar = noise_m
 else:
-	nVar = "Noiseless"
+    nVar = "Noiseless"
 
 if (isTrain == 0):
-	tVar = "Train"
-	nimg = 10000
-	lab_div = 1000
+    tVar = "Train"
+    nimg = 10000
+    lab_div = 1000
 else:
-	tVar = "Test"
-	nimg = 1000
-	lab_div = 100
+    tVar = "Test"
+    nimg = 1000
+    lab_div = 100
 
 
 
@@ -54,24 +54,30 @@ rc_nodes = []
 n_meas = new_size*int(new_size/4)
 
 for img_number in range(nimg):
-	s = "QRC_zs_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,int(nc/2),img_number,img_iteration)
+    s = "QRC_zs_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,int(nc/2),img_number,img_iteration)
 
-	with open(s, "r") as fp:
-		meas = json.load(fp)
+    with open(s, "r") as fp:
+        meas = json.load(fp)
 
 
-	Zs = np.array(meas)
+    Zs = np.array(meas)
 
-	covm = np.cov(Zs)
+    Zs_mean = np.mean(Zs,axis=1)
+    Zs_mean = Zs_mean.tolist()
 
-	upper_tri = list(covm[np.triu_indices(n_meas)])
-	
+    
+    covm = np.cov(Zs)
 
-	label_data.append(int(img_number/lab_div))
-	rc_nodes.append(upper_tri)
+    upper_tri = list(covm[np.triu_indices(n_meas)])
 
-	# remove file to declutter maybe not hahah
-	# os.remove(s)
+    # ADD <Z> VALUES TO COV MAT
+    upper_tri.extend(Zs_mean)
+
+    label_data.append(int(img_number/lab_div))
+    rc_nodes.append(upper_tri)
+
+    # remove file to declutter maybe not hahah
+    # os.remove(s)
 
 
 res = [label_data,rc_nodes]
