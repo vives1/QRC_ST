@@ -63,7 +63,7 @@ for img_number in range(nimg):
 	Zs = np.array(meas)
 
 	Zs_mean = np.mean(Zs,axis=1)
-	Zs_mean = Zs_mean.toslist()
+	Zs_mean = Zs_mean.tolist()
 
 	covm = np.cov(Zs)
 
