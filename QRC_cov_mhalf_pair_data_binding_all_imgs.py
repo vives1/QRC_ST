@@ -62,10 +62,7 @@ for img_number in range(nimg):
 
 	Zs = np.array(meas)
 
-	cov = np.cov(Zs)
-	covs_mat_flat = cov.flatten()
-
-	covm = meas.reshape(-1,n_meas)
+	covm = np.cov(Zs)
 
 	upper_tri = list(covm[np.triu_indices(n_meas)])
 	
