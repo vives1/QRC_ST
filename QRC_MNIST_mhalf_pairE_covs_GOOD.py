@@ -334,14 +334,12 @@ n_meas = new_size*int(new_size/4)
 counts = runQRC_any(new_img,shots,noise_m,isNoisy=isNoisy)
 Zs = get_Zs_vecs(n_meas,counts,shots)
 
-cov = np.cov(Zs)
-covs_mat_flat = cov.flatten()
 
-s = "QRC_cov_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,int(nc/2),img_number,img_iteration)
+s = "QRC_zs_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,int(nc/2),img_number,img_iteration)
 
 # use append "a" for parallel computing
 with open(s, "w") as fp:
-    json.dump(covs_mat_flat.tolist(), fp)
+    json.dump(Zs, fp)
 
 
 

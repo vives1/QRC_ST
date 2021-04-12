@@ -54,13 +54,17 @@ rc_nodes = []
 n_meas = new_size*int(new_size/4)
 
 for img_number in range(nimg):
-	s = "QRC_cov_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,int(nc/2),img_number,img_iteration)
+	s = "QRC_zs_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,int(nc/2),img_number,img_iteration)
 
 	with open(s, "r") as fp:
 		meas = json.load(fp)
 
 
-	meas = np.array(meas)
+	Zs = np.array(meas)
+
+	cov = np.cov(Zs)
+	covs_mat_flat = cov.flatten()
+
 	covm = meas.reshape(-1,n_meas)
 
 	upper_tri = list(covm[np.triu_indices(n_meas)])
@@ -72,8 +76,6 @@ for img_number in range(nimg):
 	# remove file to declutter maybe not hahah
 	# os.remove(s)
 
-print(len(label_data))
-print(len(rc_nodes))
 
 res = [label_data,rc_nodes]
 
