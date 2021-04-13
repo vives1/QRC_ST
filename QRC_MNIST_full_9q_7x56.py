@@ -347,7 +347,7 @@ s = "QRC_zs_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_s
 
 # use append "a" for parallel computing
 with open(s, "w") as fp:
-    json.dump(covs_mat_flat.tolist(), fp)
+    json.dump(Zs, fp)
 
 
 
