@@ -100,7 +100,11 @@ def get_Zs_vecs(n_meas,counts,shots):
         
         counts_key = counts[key]
         for r in range(n_meas):                        
-            list_vals = int(key[r])*np.ones(counts_key)
+
+            #list_vals = int(key[r])*np.ones(counts_key)
+            # true expectation:
+
+            list_vals = (-1)**(int(key[r]))*np.ones(counts_key)
             Zs[n_meas-r-1].extend(list_vals.tolist())
     return Zs  
 
@@ -335,7 +339,7 @@ counts = runQRC_any(new_img,shots,noise_m,isNoisy=isNoisy)
 Zs = get_Zs_vecs(n_meas,counts,shots)
 
 
-s = "QRC_zs_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,int(nc/2),img_number,img_iteration)
+s = "QRC_zs_true_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,int(nc/2),img_number,img_iteration)
 
 # use append "a" for parallel computing
 with open(s, "w") as fp:

@@ -54,7 +54,7 @@ rc_nodes = []
 n_meas = new_size*int(new_size/4)
 
 for img_number in range(nimg):
-    s = "QRC_zs_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,int(nc/2),img_number,img_iteration)
+    s = "QRC_zs_true_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,int(nc/2),img_number,img_iteration)
 
     with open(s, "r") as fp:
         meas = json.load(fp)
@@ -82,7 +82,7 @@ for img_number in range(nimg):
 
 res = [label_data,rc_nodes]
 
-sn = "QRC_cov_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,tVar,nimg,nVar,3*int(nr/2),nr,int(nc/2),img_iteration)
+sn = "QRC_cov+zs_true_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,tVar,nimg,nVar,3*int(nr/2),nr,int(nc/2),img_iteration)
 
 save_obj(res, sn)
 
