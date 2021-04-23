@@ -101,10 +101,11 @@ def get_Zs_vecs(n_meas,counts,shots):
         counts_key = counts[key]
         for r in range(n_meas):                        
 
-            #list_vals = int(key[r])*np.ones(counts_key)
-            # true expectation:
+            list_vals = int(key[r])*np.ones(counts_key)
 
-            list_vals = (-1)**(int(key[r]))*np.ones(counts_key)
+            # true expectation:
+            #list_vals = (-1)**(int(key[r]))*np.ones(counts_key)
+
             Zs[n_meas-r-1].extend(list_vals.tolist())
     return Zs  
 
@@ -151,15 +152,18 @@ def runQRC_any(data,shots,noise_m,isNoisy=False):
                     elif (j < nr and k >= nr): #try something with meas qubits
                         phi = v[j]*(np.pi-v[k-nr]+v[j])
 
-                    # ZZ gate
-                    if (k != 2*nr-1):
-                        circuit.cx(qr[j], qr[k])
-                        circuit.rz(2*phi, qr[k])
-                        circuit.cx(qr[j], qr[k])
-                    else:                           
-                        circuit.cx(qr[k], qr[j])
-                        circuit.rz(2*phi, qr[j])
-                        circuit.cx(qr[k], qr[j])  
+
+                    if ((j==0 and k==1) or (j==1 and k==2) or (j==1 and k==3) or (j==3 and k==4) or (j==4 and k==5)):
+
+                        # ZZ gate
+                        if (k != 2*nr-1):
+                            circuit.cx(qr[j], qr[k])
+                            circuit.rz(2*phi, qr[k])
+                            circuit.cx(qr[j], qr[k])
+                        else:                           
+                            circuit.cx(qr[k], qr[j])
+                            circuit.rz(2*phi, qr[j])
+                            circuit.cx(qr[k], qr[j])  
 
 
         # RZ's
@@ -201,15 +205,17 @@ def runQRC_any(data,shots,noise_m,isNoisy=False):
                     elif (j < nr and k >= nr): #try something with meas qubits
                         phi = v[j]*(np.pi-v[k-nr]+v[j])
 
-                    # ZZ gate
-                    if (k != 2*nr-1):
-                        circuit.cx(qr[j], qr[k])
-                        circuit.rz(2*phi, qr[k])
-                        circuit.cx(qr[j], qr[k])
-                    else:                           
-                        circuit.cx(qr[k], qr[j])
-                        circuit.rz(2*phi, qr[j])
-                        circuit.cx(qr[k], qr[j]) 
+                    if ((j==0 and k==1) or (j==1 and k==2) or (j==1 and k==3) or (j==3 and k==4) or (j==4 and k==5)):
+
+                        # ZZ gate
+                        if (k != 2*nr-1):
+                            circuit.cx(qr[j], qr[k])
+                            circuit.rz(2*phi, qr[k])
+                            circuit.cx(qr[j], qr[k])
+                        else:                           
+                            circuit.cx(qr[k], qr[j])
+                            circuit.rz(2*phi, qr[j])
+                            circuit.cx(qr[k], qr[j]) 
 
         
         # RZ's
@@ -339,7 +345,7 @@ counts = runQRC_any(new_img,shots,noise_m,isNoisy=isNoisy)
 Zs = get_Zs_vecs(n_meas,counts,shots)
 
 
-s = "QRC_zs_true_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,int(nc/2),img_number,img_iteration)
+s = "QRC_zs_ZZ5_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,int(nc/2),img_number,img_iteration)
 
 # use append "a" for parallel computing
 with open(s, "w") as fp:
