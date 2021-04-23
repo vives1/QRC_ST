@@ -149,18 +149,18 @@ def runQRC_9q_7x56(data,shots,noise_m,isNoisy=False):
                         phi = v[j]*(np.pi-v[k-nr]+v[j])
 
                     # reduce number of zz operations
-                    if (j < nq-2 and (j%2 == 0 or k%2 == 1)):
-                        pass
-                    else:
-                        # ZZ gate
-                        if (k != nq-1):
-                            circuit.cx(qr[j], qr[k])
-                            circuit.rz(2*phi, qr[k])
-                            circuit.cx(qr[j], qr[k])
-                        else:                           
-                            circuit.cx(qr[k], qr[j])
-                            circuit.rz(2*phi, qr[j])
-                            circuit.cx(qr[k], qr[j])  
+                    #if (j < nq-2 and (j%2 == 0 or k%2 == 1)):
+                    #    pass
+                    #else:
+                    # ZZ gate
+                    if (k != nq-1):
+                        circuit.cx(qr[j], qr[k])
+                        circuit.rz(2*phi, qr[k])
+                        circuit.cx(qr[j], qr[k])
+                    else:                           
+                        circuit.cx(qr[k], qr[j])
+                        circuit.rz(2*phi, qr[j])
+                        circuit.cx(qr[k], qr[j])  
 
 
         # RZ's
@@ -201,18 +201,18 @@ def runQRC_9q_7x56(data,shots,noise_m,isNoisy=False):
                         phi = v[j]*(np.pi-v[k-nr]+v[j])
 
                     # reduce number of zz operations
-                    if (j < nq-2 and (j%2 == 0 or k%2 == 1)):
-                        pass
-                    else:
-                        # ZZ gate
-                        if (k != nq-1):
-                            circuit.cx(qr[j], qr[k])
-                            circuit.rz(2*phi, qr[k])
-                            circuit.cx(qr[j], qr[k])
-                        else:                           
-                            circuit.cx(qr[k], qr[j])
-                            circuit.rz(2*phi, qr[j])
-                            circuit.cx(qr[k], qr[j])  
+                    #if (j < nq-2 and (j%2 == 0 or k%2 == 1)):
+                    #    pass
+                    #else:
+                    #    # ZZ gate
+                    if (k != nq-1):
+                        circuit.cx(qr[j], qr[k])
+                        circuit.rz(2*phi, qr[k])
+                        circuit.cx(qr[j], qr[k])
+                    else:                           
+                        circuit.cx(qr[k], qr[j])
+                        circuit.rz(2*phi, qr[j])
+                        circuit.cx(qr[k], qr[j])  
 
 
         # RZ's

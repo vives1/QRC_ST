@@ -82,7 +82,7 @@ for img_number in range(nimg):
 
 res = [label_data,rc_nodes]
 
-sn = "QRC_zs+cov_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,tVar,nimg,nVar,nq,nr,int(nc/2),img_iteration)
+sn = "QRC_zs+cov_fullZZ_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,tVar,nimg,nVar,nq,nr,int(nc/2),img_iteration)
 
 save_obj(res, sn)
 
