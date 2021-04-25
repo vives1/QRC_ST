@@ -341,7 +341,7 @@ counts = runQRC_15q_14x28(new_img,shots,noise_m,isNoisy=False)
 Zs = get_Zs_vecs(n_meas,counts,shots)
 
 
-s = "QRC_zs_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,nq,nr,int(nc/2),img_number,img_iteration)
+s = "QRC_zs_20ZZ_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,nq,nr,int(nc/2),img_number,img_iteration)
 
 # use append "a" for parallel computing
 with open(s, "w") as fp:
