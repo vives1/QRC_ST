@@ -150,7 +150,8 @@ def runQRC_15q_14x28(data,shots,noise_m,isNoisy=False):
                     # AVOID SWAPS
                     if ((j==0 and k==1) or (j==0 and k==14) or (j==1 and k==2) or (j==1 and k==13) or (j==2 and k==3) or
                         (j==2 and k==12) or (j==3 and k==4) or (j==3 and k==11) or (j==4 and k==5) or (j==4 and k==10) or
-                        (j==5 and k==6) or (j==5 and k==9) or (j==6 and k==8) or (j==7 and k==8)):
+                        (j==5 and k==6) or (j==5 and k==9) or (j==6 and k==8) or (j==7 and k==8) or (j==8 and k==9) or 
+                        (j==9 and k==10) or (j==10 and k==11) or (j==11 and k==12) or (j==12 and k==13) or (j==13 and k==14)):
                         
                         # ZZ gate
                         if (k != nq-1):
@@ -200,7 +201,8 @@ def runQRC_15q_14x28(data,shots,noise_m,isNoisy=False):
                     # AVOID SWAPS
                     if ((j==0 and k==1) or (j==0 and k==14) or (j==1 and k==2) or (j==1 and k==13) or (j==2 and k==3) or
                         (j==2 and k==12) or (j==3 and k==4) or (j==3 and k==11) or (j==4 and k==5) or (j==4 and k==10) or
-                        (j==5 and k==6) or (j==5 and k==9) or (j==6 and k==8) or (j==7 and k==8)):
+                        (j==5 and k==6) or (j==5 and k==9) or (j==6 and k==8) or (j==7 and k==8) or (j==8 and k==9) or 
+                        (j==9 and k==10) or (j==10 and k==11) or (j==11 and k==12) or (j==12 and k==13) or (j==13 and k==14)):
                         
                         # ZZ gate
                         if (k != nq-1):
@@ -341,7 +343,7 @@ counts = runQRC_15q_14x28(new_img,shots,noise_m,isNoisy=False)
 Zs = get_Zs_vecs(n_meas,counts,shots)
 
 
-s = "QRC_zs_20ZZ_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,nq,nr,int(nc/2),img_number,img_iteration)
+s = "QRC_zs_20ZZ_true_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,nq,nr,int(nc/2),img_number,img_iteration)
 
 # use append "a" for parallel computing
 with open(s, "w") as fp:
