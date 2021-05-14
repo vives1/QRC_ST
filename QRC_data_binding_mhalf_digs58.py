@@ -38,7 +38,9 @@ else:
 
 
 ranges=[range1,range2]
-label_data = label1.extend(label2)
+
+label1.extend(label2)
+label_data = label1
 
 
 # Do a file for Zs and a file for covs
