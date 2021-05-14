@@ -27,13 +27,13 @@ if (isTrain == 0):
     tVar = "Train"
     range1 = np.arange(4000,5000)
     range2 = np.arange(7000,8000)
-    label1 = (np.ones(1000)*5).tolsit()
+    label1 = (np.ones(1000)*5).tolist()
     label2 = (np.ones(1000)*8).tolist()
 else:
     tVar = "Test"
     range1 = np.arange(400,500)
     range2 = np.arange(700,800)
-    label1 = (np.ones(100)*5).tolsit()
+    label1 = (np.ones(100)*5).tolist()
     label2 = (np.ones(100)*8).tolist()
 
 
