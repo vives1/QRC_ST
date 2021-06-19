@@ -137,20 +137,25 @@ def runQRC_any(data,shots,noise_m,isNoisy=False):
 
 
         # CNOT probabilistically heavyside applied
-        for j in range(3*int(nr/2)):
-            for k in range(j,3*int(nr/2)):
-                if (j != k):
-                    if (j < nr and k < nr):
-                        vm = (v[j]+v[k])/2
-                        if (vm > 0.5):
-                            circuit.cx(qr[j], qr[k])
-                        else:
-                            circuit.cx(qr[k], qr[j]) 
-                    elif (j < nr and k >= nr):
-                        if (v[j] > 0.5):
-                            circuit.cx(qr[j], qr[k])
-                        else:
-                            circuit.cx(qr[k], qr[j]) 
+        #for j in range(3*int(nr/2)):
+        #    for k in range(j,3*int(nr/2)):
+        #        if (j != k):
+        #            if (j < nr and k < nr):
+        #                vm = (v[j]+v[k])/2
+        #                if (vm > 0.5):
+        #                    circuit.cx(qr[j], qr[k])
+        #                else:
+        #                    circuit.cx(qr[k], qr[j]) 
+        #            elif (j < nr and k >= nr):
+        #                if (v[j] > 0.5):
+        #                    circuit.cx(qr[j], qr[k])
+        #                else:
+        #                    circuit.cx(qr[k], qr[j]) 
+
+        # CNOT chain Closed BC
+        for j in range(3*int(nr/2)-1):
+            circuit.cx(qr[j], qr[j+1])
+        circuit.cx(qr[3*int(nr/2)-1], qr[0])    
 
 
 
@@ -176,21 +181,10 @@ def runQRC_any(data,shots,noise_m,isNoisy=False):
         
         # U
 
-        # CNOT probabilistically heavyside applied
-        for j in range(3*int(nr/2)):
-            for k in range(j,3*int(nr/2)):
-                if (j != k):
-                    if (j < nr and k < nr):
-                        vm = (v[j]+v[k])/2
-                        if (vm > 0.5):
-                            circuit.cx(qr[j], qr[k])
-                        else:
-                            circuit.cx(qr[k], qr[j]) 
-                    elif (j < nr and k >= nr):
-                        if (v[j] > 0.5):
-                            circuit.cx(qr[j], qr[k])
-                        else:
-                            circuit.cx(qr[k], qr[j]) 
+        # CNOT chain Closed BC
+        for j in range(3*int(nr/2)-1):
+            circuit.cx(qr[j], qr[j+1])
+        circuit.cx(qr[3*int(nr/2)-1], qr[0])  
         
         # RZ's
         # first nr rz
@@ -319,7 +313,7 @@ counts = runQRC_any(new_img,shots,noise_m,isNoisy=isNoisy)
 Zs = get_Zs_vecs(n_meas,counts,shots)
 
 
-s = "QRC_zs_allCX_Heavyside_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,nc,img_number,img_iteration)
+s = "QRC_zs_chainCX_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,nc,img_number,img_iteration)
 
 # use append "a" for parallel computing
 with open(s, "w") as fp:
