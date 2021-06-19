@@ -86,7 +86,7 @@ for dig in [dig1,dig2]:
 
 res = [label_data,rc_nodes]
 
-sn = "QRC_cov_noZZnoCX_MNIST_{}x{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,tVar,nimg,nVar,3*int(nr/2),nr,nc,img_iteration)
+sn = "QRC_cov_noZZnoCX_MNIST_{}x{}_digs{}{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,dig1,dig2,tVar,nimg,nVar,3*int(nr/2),nr,nc,img_iteration)
 
 save_obj(res, sn)
 
