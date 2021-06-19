@@ -132,7 +132,8 @@ def runQRC_any(data,shots,noise_m,isNoisy=False):
         # CNOT for every pair
         for j in range(3*int(nr/2)):
             for k in range(j,3*int(nr/2)):
-                circuit.cx(qr[j], qr[k])
+                if (j != k):
+                    circuit.cx(qr[j], qr[k])
 
 
         # RZ's
@@ -160,7 +161,8 @@ def runQRC_any(data,shots,noise_m,isNoisy=False):
         # CNOT for every pair
         for j in range(3*int(nr/2)):
             for k in range(j,3*int(nr/2)):
-                circuit.cx(qr[j], qr[k])
+                if (j != k):
+                    circuit.cx(qr[j], qr[k])
         
         # RZ's
         # first nr rz
