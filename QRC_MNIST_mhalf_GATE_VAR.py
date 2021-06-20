@@ -163,10 +163,10 @@ def runQRC_any(data,shots,noise_m,isNoisy=False):
                 if (j != k):
                     if (j < nr and k < nr):
                         vm = (v[j]+v[k])/2
-                        if (vm > 0.75):
+                        if (vm > 0.25):
                             circuit.cx(qr[j], qr[k])
                     elif (j < nr and k >= nr):
-                        if (v[j] > 0.35):
+                        if (v[j] > 0.75):
                             circuit.cx(qr[j], qr[k])
 
         # RZ's
@@ -197,10 +197,10 @@ def runQRC_any(data,shots,noise_m,isNoisy=False):
                 if (j != k):
                     if (j < nr and k < nr):
                         vm = (v[j]+v[k])/2
-                        if (vm > 0.75):
+                        if (vm > 0.25):
                             circuit.cx(qr[j], qr[k])
                     elif (j < nr and k >= nr):
-                        if (v[j] > 0.35):
+                        if (v[j] > 0.75):
                             circuit.cx(qr[j], qr[k]) 
         
         # RZ's
@@ -330,7 +330,7 @@ counts = runQRC_any(new_img,shots,noise_m,isNoisy=isNoisy)
 Zs = get_Zs_vecs(n_meas,counts,shots)
 
 
-s = "QRC_zs_fewProbCX7535_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,nc,img_number,img_iteration)
+s = "QRC_zs_fewProbCX2575_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,nc,img_number,img_iteration)
 
 # use append "a" for parallel computing
 with open(s, "w") as fp:
