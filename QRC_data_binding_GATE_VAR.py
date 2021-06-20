@@ -81,7 +81,7 @@ for dig in [dig1,dig2]:
 		rc_nodes.append(upper_tri)
 
 		# remove file to declutter maybe not hahah
-		# os.remove(s)
+		os.remove(s)
 
 
 res = [label_data,rc_nodes]
