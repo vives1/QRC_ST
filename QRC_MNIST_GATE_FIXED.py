@@ -283,7 +283,7 @@ new_img = reshape_img_MNIST(img,new_size,nr,nc)
 
 # always this
 shots = 1024
-n_meas = new_size*int(new_size/2)
+n_meas = 8
 
 
 counts = runQRC_any(new_img,shots,noise_m,isNoisy=isNoisy)
