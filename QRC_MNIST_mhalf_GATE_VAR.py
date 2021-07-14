@@ -171,17 +171,17 @@ def runQRC_any(data,shots,noise_m,isNoisy=False):
 
 
         # CNOT few prob casab
-        for j in range(3*int(nr/2)):
-            for k in range(j,3*int(nr/2)):
-                if ((j==0 and k==1) or (j==1 and k==2) or (j==1 and k==3) or 
-                    (j==3 and k==5) or (j==4 and k==5) or (j==5 and k==6)):
-                    if (j < nr and k < nr):
-                        vm = (v[j]+v[k])/2
-                        if (vm > 0.25):
-                            circuit.cx(qr[j], qr[k])
-                    elif (j < nr and k >= nr):
-                        if (v[j] > 0.25):
-                            circuit.cx(qr[j], qr[k])
+        #for j in range(3*int(nr/2)):
+        #    for k in range(j,3*int(nr/2)):
+        #        if ((j==0 and k==1) or (j==1 and k==2) or (j==1 and k==3) or 
+        #            (j==3 and k==5) or (j==4 and k==5) or (j==5 and k==6)):
+        #            if (j < nr and k < nr):
+        #                vm = (v[j]+v[k])/2
+        #                if (vm > 0.25):
+        #                    circuit.cx(qr[j], qr[k])
+        #            elif (j < nr and k >= nr):
+        #                if (v[j] > 0.25):
+        #                    circuit.cx(qr[j], qr[k])
 
         # RZ's
         # first nr rz
@@ -196,8 +196,7 @@ def runQRC_any(data,shots,noise_m,isNoisy=False):
         
         phi_20 = (np.pi-np.sum(v))
         circuit.rz(2*phi_20,qr[3*int(nr/2)-1])
-                         
-
+                        
         
         # H's
         for j in range(3*int(nr/2)):
@@ -206,17 +205,17 @@ def runQRC_any(data,shots,noise_m,isNoisy=False):
         # U
 
         # CNOT few prob casab
-        for j in range(3*int(nr/2)):
-            for k in range(j,3*int(nr/2)):
-                if ((j==0 and k==1) or (j==1 and k==2) or (j==1 and k==3) or 
-                    (j==3 and k==5) or (j==4 and k==5) or (j==5 and k==6)):
-                    if (j < nr and k < nr):
-                        vm = (v[j]+v[k])/2
-                        if (vm > 0.25):
-                            circuit.cx(qr[j], qr[k])
-                    elif (j < nr and k >= nr):
-                        if (v[j] > 0.25):
-                            circuit.cx(qr[j], qr[k]) 
+        #for j in range(3*int(nr/2)):
+        #    for k in range(j,3*int(nr/2)):
+        #        if ((j==0 and k==1) or (j==1 and k==2) or (j==1 and k==3) or 
+        #            (j==3 and k==5) or (j==4 and k==5) or (j==5 and k==6)):
+        #            if (j < nr and k < nr):
+        #                vm = (v[j]+v[k])/2
+        #                if (vm > 0.25):
+        #                    circuit.cx(qr[j], qr[k])
+        #            elif (j < nr and k >= nr):
+        #                if (v[j] > 0.25):
+        #                    circuit.cx(qr[j], qr[k]) 
         
         # RZ's
         # first nr rz
@@ -337,7 +336,7 @@ else:
 new_img = reshape_img_MNIST(img,new_size,nr,nc)
 
 # always this
-shots = 1024
+shots = 1e5 #1024
 n_meas = new_size*int(new_size/2)
 
 
@@ -345,7 +344,7 @@ counts = runQRC_any(new_img,shots,noise_m,isNoisy=isNoisy)
 Zs = get_Zs_vecs(n_meas,counts,shots)
 
 
-s = "QRC_zs_fewCasabProbCX2525_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,nc,img_number,img_iteration)
+s = "QRC_zs_noCX_1e5shots_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,nc,img_number,img_iteration)
 
 # use append "a" for parallel computing
 with open(s, "w") as fp:
