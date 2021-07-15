@@ -59,7 +59,7 @@ n_meas = new_size*int(new_size/2)
 for dig in [dig1,dig2]:
 	for img_number in range(dig*lab_div,(dig+1)*lab_div):
 
-		s = "QRC_zs_noCX_1e5shots_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,nc,img_number,img_iteration)
+		s = "QRC_zs_fewProbCX7525_1e5shots_MNIST_{}x{}_{}_{}_nq{}_{}x{}_img{}_iter{}.txt".format(new_size,new_size,tVar,nVar,3*int(nr/2),nr,nc,img_number,img_iteration)
 
 		with open(s, "r") as fp:
 			meas = json.load(fp)
@@ -86,7 +86,7 @@ for dig in [dig1,dig2]:
 
 res = [label_data,rc_nodes]
 
-sn = "QRC_cov_noCX_1e5shots_MNIST_{}x{}_digs{}{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,dig1,dig2,tVar,nimg,nVar,3*int(nr/2),nr,nc,img_iteration)
+sn = "QRC_cov_fewProbCX7525_1e5shots_MNIST_{}x{}_digs{}{}_{}{}_{}_nq{}_{}x{}_iter{}.txt".format(new_size,new_size,dig1,dig2,tVar,nimg,nVar,3*int(nr/2),nr,nc,img_iteration)
 
 save_obj(res, sn)
 
